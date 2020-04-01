@@ -37,20 +37,25 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: kill all humans' for row in rows),
-            "New to-do item did not appear in table"
-        )
+        self.assertIn('1: kill all humans',[row.text for row in rows])
 
         #There is still a text box inviting him to add another item
         #He enters "kill the rats as well"
-        self.Fail('Finish the test!') 
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('kill the rats as well')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         #the page updates again and shows both items on the list
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: kill all humans',[row.text for row in rows])
+        self.assertIn('2: kill the rats as well',[row.text for row in rows])
 
         #Loki hopes the site will remeber this for him because his thinker
         #is not too good. He sees that he has a unique URL and there is some
         #text to that effect as well
+        self.fail('Finish the test!')
 
         #He visits the URL and his list is still there
 
@@ -58,3 +63,4 @@ class NewVisitorTest(unittest.TestCase):
 
 if __name__=='__main__':
     unittest.main(warnings='ignore')
+
