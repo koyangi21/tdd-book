@@ -95,8 +95,8 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: beg for food')
 
         #Again, there is no trace of Loki's list
-        page_text = self.browser.find_elements_by_tag_name('body').text
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('kill all humans',page_text)
-        self.In('beg for food',page_text)
+        self.assertIn('beg for food',page_text)
 
         #satisfied he makes some noppers too
