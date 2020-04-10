@@ -7,8 +7,8 @@ User=koyangi
 WorkingDirectory=/home/koyangi/python/DOMAIN
 EnvironmentFile=/home/koyangi/python/DOMAIN/.env
 
-ExecStart=/home/koyangi/python/tdd-book/virtualenv/bin/gunicorn \
---bind unix:/tmp/DOMAIN/socket \
+ExecStart=/home/koyangi/python/DOMAIN/virtualenv/bin/gunicorn \
+--bind unix:/tmp/DOMAIN.socket \
 superlists.wsgi:application
 
 [Install]
