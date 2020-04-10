@@ -5,7 +5,7 @@ Description=Gunicorn server for DOMAIN
 Restart=on-failure
 User=koyangi
 WorkingDirectory=/home/koyangi/python/DOMAIN
-EnviornmentFile=/home/koyangi/python/DOMAIN/.env
+EnvironmentFile=/home/koyangi/python/DOMAIN/.env
 
 ExecStart=/home/koyangi/python/tdd-book/virtualenv/bin/gunicorn \
 --bind unix:/tmp/DOMAIN/socket \
