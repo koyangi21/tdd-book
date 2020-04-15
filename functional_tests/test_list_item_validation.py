@@ -35,7 +35,7 @@ class ItemValidationTest(FunctionalTest):
         ))
 
 
-        #And he can correct it bu filling some text in
+        #And he can correct it by filling some text in
         self.get_item_input_box().send_keys('Eat fishies')
         self.wait_for(lambda: self.browser.find_element_by_css_selector(
                 '#id_text:valid'
@@ -43,3 +43,20 @@ class ItemValidationTest(FunctionalTest):
         self.get_item_input_box().send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy tooter')
         self.wait_for_row_in_list_table('2: Eat fishies')
+
+    def test_cannot_add_duplicate_items(self):
+        #Loki goes to the home page and starts a new list
+        self.browser.get(self.live_server_url)
+        self.get_item_input_box().send_keys('Kill the ribbon')
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: Kill the ribbon')
+
+        #He accidently enters a duplicate item
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: Kill the ribbon')
+
+        #He sees a helpful error message
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.find_element_by_css_selector('.has-error').text,
+            "You've already got this on your list"
+        ))
