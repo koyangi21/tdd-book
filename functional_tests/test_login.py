@@ -59,7 +59,6 @@ class LoginTest(FunctionalTest):
             'Check your email',
             self.browser.find_element_by_tag_name('body').text
         ))
-
         #He checks his email and finds a message
         body = self.wait_for_email(test_email, SUBJECT)
 
